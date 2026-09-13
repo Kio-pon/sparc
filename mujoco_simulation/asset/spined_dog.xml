@@ -50,6 +50,12 @@
             <default class="foot_collision">
                   <geom type="sphere" size="0.03" contype="2" conaffinity="1" group="3"/>
             </default>
+            <default class="body_collision">
+                  <geom type="box" contype="2" conaffinity="1" group="3" density="0" rgba="0 0 0 0"/>
+            </default>
+            <default class="link_collision">
+                  <geom type="capsule" contype="2" conaffinity="1" group="3" density="0" rgba="0 0 0 0"/>
+            </default>
       </default>
 
     <worldbody>
@@ -71,16 +77,19 @@
       <freejoint name="root_joint"/>
       <inertial pos="0 0 0" mass="2.044" diaginertia="0.01614 0.007591 0.02169"/>
       <geom class="visual" type="mesh" mesh="hind_body"/>
+      <geom name="hind_body_collision" class="body_collision" pos="0.037 0 0" size="0.105 0.125 0.045"/>
 <!--      <geom type="mesh" mesh="simplify_sim_hind_body"/>-->
       <body name="hind_left_leg_upper" pos="-0.032496964 0.137389577 -0.00028757">
         <inertial pos="0.000884 0.011774 -0.058206" mass="0.252259" diaginertia="0.000873 0.000942 0.000192"/>
         <joint name="joint_hind_left_leg_upper" pos="0 0 0"/>
         <geom class="visual" type="mesh" mesh="hind_left_leg_upper"/>
+        <geom name="hind_left_leg_upper_collision" class="link_collision" fromto="0 0 0 0 0 -0.151" size="0.025"/>
 <!--        <geom type="mesh" mesh="simplify_sim_hind_left_leg_upper"/>-->
         <body name="hind_left_leg_lower" pos="0 0.012 -0.151">
           <inertial pos="0.000327 0 -0.061393" mass="0.051" diaginertia="0.000223 0.000225 0.000005078"/>
           <joint name="joint_hind_left_leg_lower" pos="0 0 0"/>
           <geom class="visual" type="mesh" mesh="hind_left_leg_lower"/>
+          <geom name="hind_left_leg_lower_collision" class="link_collision" fromto="0 0 0 0 0 -0.151" size="0.015"/>
 <!--          <geom type="mesh" mesh="simplify_sim_hind_left_leg_lower"/>-->
           <body name="hind_left_foot" pos="0 0 -0.151">
             <inertial pos="0 0 0" mass="0.01" diaginertia="1e-05 1e-05 1e-05"/>
@@ -94,11 +103,13 @@
         <inertial pos="0.000883 -0.011774 -0.058205" mass="0.252259" diaginertia="0.000873 0.000942 0.000192"/>
         <joint name="joint_hind_right_leg_upper" pos="0 0 0"/>
         <geom class="visual" type="mesh" mesh="hind_right_leg_upper"/>
+        <geom name="hind_right_leg_upper_collision" class="link_collision" fromto="0 0 0 0 0 -0.151" size="0.025"/>
 <!--        <geom type="mesh" mesh="simplify_sim_hind_right_leg_upper"/>-->
         <body name="hind_right_leg_lower" pos="0 -0.012 -0.151">
           <inertial pos="0.000327 0 -0.061393" mass="0.051" diaginertia="0.000223 0.000225 0.000005078"/>
           <joint name="joint_hind_right_leg_lower" pos="0 0 0"/>
           <geom class="visual" type="mesh" mesh="hind_right_leg_lower"/>
+          <geom name="hind_right_leg_lower_collision" class="link_collision" fromto="0 0 0 0 0 -0.151" size="0.015"/>
 <!--          <geom type="mesh" mesh="simplify_sim_hind_right_leg_lower"/>-->
           <body name="hind_right_foot" pos="0 0 -0.151">
             <inertial pos="0 0 0" mass="0.01" diaginertia="1e-05 1e-05 1e-05"/>
@@ -112,26 +123,31 @@
         <inertial pos="0.109455866 0.014797864 0" mass="0.399" diaginertia="0.0001953 0.0005357 0.0004759"/>
         <joint name="joint_hind_spine" pos="0 0 0"/>
         <geom class="visual" type="mesh" mesh="hind_spine"/>
+        <geom name="hind_spine_collision" class="link_collision" fromto="0 0 0 0.1175 0.036 0" size="0.025"/>
 <!--        <geom type="mesh" mesh="simplify_sim_hind_spine"/>-->
         <body name="front_spine" pos="0.1175 0.036 0">
           <inertial pos="0.05875 0.0073 0" mass="0.052" diaginertia="0.0000036976 0.000084358 0.000082312887603"/>
           <joint name="joint_front_spine" pos="0 0 0"/>
           <geom class="visual" type="mesh" mesh="front_spine"/>
+          <geom name="front_spine_collision" class="link_collision" fromto="0 0 0 0.1175 0 0" size="0.02"/>
 <!--          <geom type="mesh" mesh="simplify_sim_front_spine"/>-->
           <body name="front_body" pos="0.1175 0 0">
             <inertial pos="0.107249862 -0.019360422 -0.002160635" mass="2.044" diaginertia="0.01614 0.007591 0.02169"/>
             <joint name="joint_front_body" pos="0 0 0"/>
             <geom class="visual" type="mesh" mesh="front_body"/>
+            <geom name="front_body_collision" class="body_collision" pos="0.07 -0.02 0" size="0.105 0.125 0.045"/>
 <!--            <geom type="mesh" mesh="simplify_sim_front_body"/>-->
             <body name="front_left_leg_upper" pos="0.139742934 0.11725 -0.00245609">
               <inertial pos="-0.000883 0.011774 -0.058205" mass="0.252259" diaginertia="0.000873 0.000942 0.000192"/>
               <joint name="joint_front_left_leg_upper" pos="0 0 0"/>
               <geom class="visual" type="mesh" mesh="front_left_leg_upper"/>
+              <geom name="front_left_leg_upper_collision" class="link_collision" fromto="0 0 0 0 0 -0.151" size="0.025"/>
 <!--              <geom type="mesh" mesh="simplify_sim_front_left_leg_upper"/>-->
               <body name="front_left_leg_lower" pos="0 0.012 -0.151">
                 <inertial pos="-0.000327 0 -0.061393" mass="0.051" diaginertia="0.000223 0.000225 0.000005078"/>
                 <joint name="joint_front_left_leg_lower" pos="0 0 0"/>
                 <geom class="visual" type="mesh" mesh="front_left_leg_lower"/>
+                <geom name="front_left_leg_lower_collision" class="link_collision" fromto="0 0 0 0 0 -0.151" size="0.015"/>
 <!--                <geom type="mesh" mesh="simplify_sim_front_left_leg_lower"/>-->
                 <body name="front_left_foot" pos="0 0 -0.151">
                   <inertial pos="0 0 0" mass="0.01" diaginertia="1e-05 1e-05 1e-05"/>
@@ -145,11 +161,13 @@
               <inertial pos="-0.000884 -0.011774 -0.058206" mass="0.252259" diaginertia="0.000873 0.000942 0.000192"/>
               <joint name="joint_front_right_leg_upper" pos="0 0 0"/>
               <geom class="visual" type="mesh" mesh="front_right_leg_upper"/>
+              <geom name="front_right_leg_upper_collision" class="link_collision" fromto="0 0 0 0 0 -0.151" size="0.025"/>
 <!--              <geom type="mesh" mesh="simplify_sim_front_right_leg_upper"/>-->
               <body name="front_right_leg_lower" pos="0 -0.012 -0.151">
                 <inertial pos="-0.000327 0 -0.061393" mass="0.051" diaginertia="0.000223 0.000225 0.000005078"/>
                 <joint name="joint_front_right_leg_lower" pos="0 0 0"/>
                 <geom class="visual" type="mesh" mesh="front_right_leg_lower"/>
+                <geom name="front_right_leg_lower_collision" class="link_collision" fromto="0 0 0 0 0 -0.151" size="0.015"/>
 <!--                <geom type="mesh" mesh="simplify_sim_front_right_leg_lower"/>-->
                 <body name="front_right_foot" pos="0 0 -0.151">
                   <inertial pos="0 0 0" mass="0.01" diaginertia="1e-05 1e-05 1e-05"/>

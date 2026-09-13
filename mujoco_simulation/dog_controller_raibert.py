@@ -247,6 +247,29 @@ class DogControllerRaibert:
         self.v_cmd_x = v_x
         self.target_yaw = yaw_target
 
+    def reset_state(self):
+        """Clear state that cannot survive a MuJoCo time reset."""
+        self.last_time = 0.0
+        self.vel_x_integral = 0.0
+        self.v_cmd_filtered = 0.3
+        self.filtered_height = 0.25
+        self.roll_integral = 0.0
+        self.yaw_integral = 0.0
+        self.hind_v_accumulator = 0.0
+        self.hind_v_sample_count = 0
+        self.hind_v_stance_avg = 1.0
+        self.last_hind_in_stance = False
+        self.filtered_v_hind = 0.0
+        self.front_v_accumulator = 0.0
+        self.front_v_sample_count = 0
+        self.front_v_stance_avg = 1.0
+        self.last_front_in_stance = False
+        self.filtered_v_front = 0.0
+        self.filtered_pitch_rate = 0.0
+        self.last_pitch = 0.0
+        self.gait_generator.global_phase_offset = 0.0
+        self.gait_generator.leg_states = [LegTrajectoryState() for _ in range(4)]
+
     def _quat_to_rpy(self, q):
         w, x, y, z = q
         sinr_cosp = 2 * (w * x + y * z)

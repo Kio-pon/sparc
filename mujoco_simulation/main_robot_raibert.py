@@ -42,9 +42,20 @@ class MuJoCoSimulation:
         self.control_frequency = control_frequency
         self.control_period = 1.0 / control_frequency
         self.last_control_time = 0.0
+        self.reset_callback = None
         
     def control_callback(self):
         self.data.ctrl[:] = 0.0
+
+    def handle_time_reset(self):
+        """Restart control state after the viewer resets simulation time."""
+        if self.data.time >= self.last_control_time:
+            return False
+
+        self.last_control_time = self.data.time - self.control_period
+        if self.reset_callback is not None:
+            self.reset_callback()
+        return True
         
     def run(self, max_time: float = None):
         with mujoco.viewer.launch_passive(self.model, self.data) as viewer:
@@ -54,6 +65,7 @@ class MuJoCoSimulation:
             viewer.cam.lookat = np.array([0.0, 0.0, 0.5])
             start_time = self.data.time
             while viewer.is_running():
+                self.handle_time_reset()
                 if max_time is not None and (self.data.time - start_time) >= max_time:
                     break
                 if self.data.time - self.last_control_time >= self.control_period:
@@ -109,6 +121,12 @@ def main():
     }
     for name, pos in init_positions.items():
         sim.interface.set_joint_pos(name, pos)
+
+    # MuJoCo's Reset button restores model.qpos0. Save the configured standing
+    # pose there so reset matches startup instead of returning every joint to 0.
+    sim.model.qpos0[:] = sim.data.qpos
+    mj.mj_forward(sim.model, sim.data)
+    sim.reset_callback = controller.reset_state
 
     # ---------------- Control Loop ----------------
     def custom_control():
